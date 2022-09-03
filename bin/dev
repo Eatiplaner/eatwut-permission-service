@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Check if  installed
+if ! command -v entr &> /dev/null
+then
+    echo "🙀 entr is not installed."
+    echo "Installing entr"
+    brew install entr
+    echo "✅ entr installed"
+fi
+
+ls *.go | entr -r go run init.go

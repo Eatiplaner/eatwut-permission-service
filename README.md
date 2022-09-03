@@ -7,5 +7,5 @@ go mod download
 ## Running project
 
 ```ash
-go run init.go
+bin/dev
 ```
