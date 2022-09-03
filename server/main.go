@@ -22,13 +22,9 @@ var (
 )
 
 func StartServer() {
-	config, err := util.LoadConfig(".")
-	if err != nil {
-		log.Fatal("cannot load config:", err)
-	}
 
 	// Init connection TCP
-	port, err := net.Listen("tcp", fmt.Sprintf(":%s", config.GRPC_SERVER_PORT))
+	port, err := net.Listen("tcp", fmt.Sprintf(":%s", util.Cfg().GRPC_SERVER_PORT))
 	if err != nil {
 		panic(err)
 	}
@@ -45,7 +41,7 @@ func StartServer() {
 	echo.RegisterEchoServiceServer(grpc, new(Echo))
 
 	reflection.Register(grpc)
-	log.Println(fmt.Sprintf("Grpc Server is listening on port %s", config.GRPC_SERVER_PORT))
+	log.Println(fmt.Sprintf("Grpc Server is listening on port %s", util.Cfg().GRPC_SERVER_PORT))
 
 	if err := grpc.Serve(port); err != nil {
 		log.Fatal(err)
