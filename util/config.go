@@ -1,6 +1,10 @@
 package util
 
-import "github.com/spf13/viper"
+import (
+	"log"
+
+	"github.com/spf13/viper"
+)
 
 type Config struct {
 	GRPC_SERVER_PORT string `mapstructure:"GRPC_SERVER_PORT"`
@@ -20,5 +24,10 @@ func LoadConfig(path string) (config Config, err error) {
 	}
 
 	err = viper.Unmarshal(&config)
-	return
+
+	if err != nil {
+		log.Fatal("cannot load config:", err)
+	}
+
+	return config, err
 }
